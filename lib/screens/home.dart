@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/screens/login_screen.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
@@ -25,11 +26,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: tdBGColor,
+      //backgroundColor: tdBGColor,
+      backgroundColor: tgbgcolor,
       appBar: _buildAppBar(),
       body: Stack(
         children: [
           Container(
+            //color: Colors.amber,
             padding: EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 15,
@@ -197,7 +200,8 @@ class _HomeState extends State<Home> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: tdBGColor,
+      //backgroundColor: tdBGColor,
+      backgroundColor: tgbgcolor,
       elevation: 0,
       title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Icon(
@@ -205,12 +209,18 @@ class _HomeState extends State<Home> {
           color: tdBlack,
           size: 30,
         ),
-        Container(
-          height: 40,
-          width: 40,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset('assets/images/avatar.jpeg'),
+        MaterialButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
+          },
+          child: Container(
+            height: 40,
+            width: 40,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset('assets/images/avatar.jpeg'),
+            ),
           ),
         ),
       ]),
