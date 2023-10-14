@@ -27,47 +27,49 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
-      body: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
-            child: Column(
-              children: [
-                searchBox(),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: 50,
-                          bottom: 20,
-                        ),
-                        child: Text(
-                          'All ToDos',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
-                          ),
+      body: Column(children: [
+        Expanded(
+          child: ListView(
+            children: [
+              searchBox(),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 15,
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 50,
+                        bottom: 20,
+                      ),
+                      child: Text(
+                        'All ToDos',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      for (ToDo todoo in _foundToDo.reversed)
-                        ToDoItem(
-                          todo: todoo,
-                          onToDoChanged: _handleToDoChange,
-                          onDeleteItem: _deleteToDoItem,
-                        ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    ),
+                    for (ToDo todoo in _foundToDo.reversed)
+                      ToDoItem(
+                        todo: todoo,
+                        onToDoChanged: _handleToDoChange,
+                        onDeleteItem: _deleteToDoItem,
+                      ),
+                  ],
+                ),
+              ),
+            ],
+            shrinkWrap: true,
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(children: [
+        ),
+        // Add the bottom text field and button hereAlign(
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            children: [
               Expanded(
                 child: Container(
                   margin: EdgeInsets.only(
@@ -121,10 +123,10 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-            ]),
+            ],
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 
@@ -142,6 +144,9 @@ class _HomeState extends State<Home> {
 
   void _addToDoItem(String toDo) {
     setState(() {
+      if (_todoController.text.isEmpty) {
+        return;
+      }
       todosList.add(ToDo(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         todoText: toDo,
